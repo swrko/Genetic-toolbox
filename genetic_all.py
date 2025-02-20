@@ -2,6 +2,13 @@ import math
 import numpy as np
 import random
 
+# Nova schwefelova funkcia
+# pop - numpy array 1D alebo 2D, 1D array je interpretovany ako N bodov
+# funkcie jednej premennej
+def testfn3b(pop):
+    if len(pop.shape) < 2:
+        pop = pop.reshape(-1, 1)
+    return np.sum(-(pop + 150)*np.sin(np.sqrt(np.abs(pop + 150))) + 250, axis=-1)
 
 # ------------------------------ VYBER ------------------------------
 
