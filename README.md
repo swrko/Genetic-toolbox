@@ -7,7 +7,9 @@ This project contains a collection of Python functions for implementing various 
 
 ## Installation
 You can install this package using pip directly from this repository:
-`pip install git+https://github.com/swrko/Genetic-toolbox`
+```bash
+pip install git+https://github.com/swrko/Genetic-toolbox
+```
 
 ## Features
 
@@ -58,15 +60,9 @@ You can install this package using pip directly from this repository:
 
 ## Requirements
 
-- Python 3.x
+- Python 3.10+
 - NumPy
-
-You can install the required packages using pip:
-
-```bash
-pip install numpy
-```
-
+- Matplotlib (examples)
 
 ---
 
