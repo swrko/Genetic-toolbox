@@ -5,6 +5,10 @@
 
 This project contains a collection of Python functions for implementing various components of genetic algorithms. It includes several selection, mutation, and crossover operators along with helper utilities for generating populations and testing fitness functions. The code is designed to be modular and flexible, allowing you to experiment with different evolutionary strategies for optimization problems.
 
+## Installation
+You can install this package using pip directly from this repository:
+`pip install git+https://github.com/swrko/Genetic-toolbox`
+
 ## Features
 
 ### Selection Operators
