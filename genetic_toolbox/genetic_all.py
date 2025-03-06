@@ -4,20 +4,23 @@ import random
 
 from numpy.typing import NDArray
 
+
 # Nova schwefelova funkcia
 # pop - numpy array 1D alebo 2D, 1D array je interpretovany ako N bodov
 # funkcie jednej premennej
 def testfn3b(pop: NDArray) -> NDArray:
     if len(pop.shape) < 2:
         pop = pop.reshape(-1, 1)
-    return np.sum(-(pop + 150)*np.sin(np.sqrt(np.abs(pop + 150))) + 250, axis=-1)
+    return np.sum(-(pop + 150) * np.sin(np.sqrt(np.abs(pop + 150))) + 250, axis=-1)
+
 
 # Generuje space s rovnakymi obmedzeniami pre vsetky geny
-def uniform_space(amount_of_genes: int, 
-                  lower_limit:     float, 
-                  upper_limit:     float) -> NDArray:
-    return np.stack([np.array([lower_limit,]*amount_of_genes), 
-                     np.array([upper_limit,]*amount_of_genes)])
+def uniform_space(amount_of_genes: int,
+                  lower_limit: float,
+                  upper_limit: float) -> NDArray:
+    return np.stack([np.array([lower_limit, ] * amount_of_genes),
+                     np.array([upper_limit, ] * amount_of_genes)])
+
 
 # ------------------------------ VYBER ------------------------------
 
@@ -25,7 +28,6 @@ def uniform_space(amount_of_genes: int,
 # funkcia zoradi jedince podla uspesnoti a vytvori
 # novu populaciu podla n_listu
 def selbest(old_pop, old_pop_fit, n_list, reverse=False):
-
     new_pop, new_fit = [], []
 
     # vytvorenie pola indexov zoradenych jedincov
@@ -45,7 +47,6 @@ def selbest(old_pop, old_pop_fit, n_list, reverse=False):
 # funkcia zoradi jedince a vrati prvych n jedincov
 # v novej pop
 def selsort(old_pop, old_pop_fit, n, reverse=False):
-
     new_pop, new_fit = [], []
 
     # vytvorenie listu indexov so zoradenymi jedincami
@@ -64,7 +65,6 @@ def selsort(old_pop, old_pop_fit, n, reverse=False):
 # funkcia zisti diverzity jedincov od referencneho jedinca
 # a podla n_listu vytvori novu pop
 def seldiv(old_pop, old_pop_fit, n_list, mode, reverse=False):
-
     # shape[0] - pocet riadkov
     # shape[1] - pocet stlpcov
     shape = old_pop.shape
@@ -104,7 +104,6 @@ def seldiv(old_pop, old_pop_fit, n_list, mode, reverse=False):
 # nahodny vyber
 # funkcia vytvori novu pop z nahodnych jedincov
 def selrand(old_pop, old_pop_fit, n):
-
     # shape[0] - pocet riadkov
     # shape[1] - pocet stlpcov
     shape = old_pop.shape
@@ -126,7 +125,6 @@ def selrand(old_pop, old_pop_fit, n):
 # do novej pop, vyber cisel je vypocitany z poctu cisel n
 # a nahodneho cisla
 def selsus(old_pop, old_pop_fit, n, reverse=False):
-
     # shape[0] - pocet riadkov
     # shape[1] - pocet stlpcov
     shape = old_pop.shape
@@ -171,7 +169,6 @@ def selsus(old_pop, old_pop_fit, n, reverse=False):
 # funkcia vykona "zapasy" medzi nahodne vybranymi jedincami
 # lepsi jedinec bude skopirovany do novej pop
 def seltourn(old_pop, old_pop_fit, n, reverse=False):
-
     # shape[0] - pocet riadkov
     # shape[1] - pocet stlpcov
     shape = old_pop.shape
@@ -214,7 +211,6 @@ def seltourn(old_pop, old_pop_fit, n, reverse=False):
 # v rozsahu danom parametrom space
 # intenzita mutacie je v parametri rate
 def mutx(old_pop, rate, space):
-
     # shape[0] - pocet riadkov
     # shape[1] - pocet stlpcov
     shape = old_pop.shape
@@ -246,7 +242,6 @@ def mutx(old_pop, rate, space):
 # su dane absolutnou hodnotou v matici amp
 # intenzita mutacie je v parametri rate
 def muta(old_pop, rate, amp, space):
-
     # shape[0] - pocet riadkov
     # shape[1] - pocet stlpcov
     shape = old_pop.shape
@@ -268,13 +263,13 @@ def muta(old_pop, rate, amp, space):
 
     return old_pop
 
+
 # multiplikativna mutacie
 # funckia zmeni nahodne vybrane geny na cisla tak ze
 # gen budu vynasobeny cislom ktoreho rozsahy
 # su dane absolutnou hodnotou v matici amp
 # intenzita mutacie je v parametri rate
 def mutm(old_pop, rate, amp, space):
-
     # shape[0] - pocet riadkov
     # shape[1] - pocet stlpcov
     shape = old_pop.shape
@@ -299,11 +294,11 @@ def mutm(old_pop, rate, amp, space):
 
     return old_pop
 
+
 # vymena genov, permutacna mutacia
 # funkcia vymeni 2 geny v jedincovi
 # intenzita mutacie je v parametri rate
 def swapgen(old_pop, rate):
-
     # shape[0] - pocet riadkov
     # shape[1] - pocet stlpcov
     shape = old_pop.shape
@@ -333,7 +328,6 @@ def swapgen(old_pop, rate):
 # vymeni ich poradie
 # intenzita mutacie je v parametri rate
 def swappart(old_pop, rate):
-
     # shape[0] - pocet riadkov
     # shape[1] - pocet stlpcov
     shape = old_pop.shape
@@ -356,7 +350,6 @@ def swappart(old_pop, rate):
 # medzilahle krizenie
 # funkcia zkrizi pary jedincov cez vzorec a vytvori 2 jedince
 def intmedx(old_pop, alpha, mode):
-
     # shape[0] - pocet riadkov
     # shape[1] - pocet stlpcov
     shape = old_pop.shape
@@ -389,7 +382,6 @@ def intmedx(old_pop, alpha, mode):
 # funkcia vytvori nove jedince, ktore bude mat
 # geny skombinovane zo vsetkych jedincov v populacii
 def crossgrp(old_pop, n):
-
     # shape[0] - pocet riadkov
     # shape[1] - pocet stlpcov
     shape = old_pop.shape
@@ -402,7 +394,6 @@ def crossgrp(old_pop, n):
 
         # vyber genov nahodne z celej populacie
         for col in range(shape[1]):
-
             m = math.ceil(random.random() * shape[0]) - 1
             tmp.append(old_pop[m, col])
 
@@ -415,7 +406,6 @@ def crossgrp(old_pop, n):
 # funkcia zkrizi pary jedincov tak, ze sa podla parametra pts
 # vytvoria body krizenia medzi ktorymi sa vymenia geny jedincov
 def crossov(old_pop, pts, mode):
-
     # shape[0] - pocet riadkov
     # shape[1] - pocet stlpcov
     shape = old_pop.shape
@@ -492,13 +482,15 @@ def crossord(old_pop, sel=0):
         fill(old_pop[j], old_pop[i], new_pop[j], p1, p2)
 
     return new_pop
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
 
 # ------------------------------ ine funkcie ------------------------------
 
 # generovanie novej populacie
 def genrpop(pop_size, space):
-
     # shape[0] - pocet riadkov
     # shape[1] - pocet stlpcov
     shape = space.shape
@@ -520,7 +512,6 @@ def genrpop(pop_size, space):
 # generovanie populacie pre permutacne ulohy
 # vygenerovanie hodnoty majo rozsah <1; max_val>
 def genrpop_perm(rows, max_val):
-
     pop = []
     for i in range(rows):
         lst = list(range(max_val))
@@ -532,7 +523,6 @@ def genrpop_perm(rows, max_val):
 
 # inverzia fit hodnot pre maximalizacne ulohy
 def invfit(old):
-
     new = (max(old) - old) + min(old)
 
     return new
@@ -540,7 +530,6 @@ def invfit(old):
 
 # schwefel funkcia pre testovanie
 def schwefel(pop):
-
     shape = pop.shape
     fit = np.zeros(shape[0])
 
@@ -552,7 +541,6 @@ def schwefel(pop):
 
 # eggholder funkcia pre testovanie
 def eggholder(pop):
-
     shape = pop.shape
     fit = np.zeros(shape[0])
 
@@ -560,14 +548,13 @@ def eggholder(pop):
         x = pop[i]
         for j in range(shape[1] - 1):
             fit[i] -= x[j] * math.sin(math.sqrt(abs(x[j] - (x[j + 1] + 47)))) + (
-                x[j + 1] + 47) * math.sin(math.sqrt(abs(x[j + 1] + 47 + x[j] / 2)))
+                    x[j + 1] + 47) * math.sin(math.sqrt(abs(x[j + 1] + 47 + x[j] / 2)))
 
     return fit
 
 
 # rastrigin funkcia pre testovanie
 def rastrigin(pop):
-
     shape = pop.shape
 
     fit = np.ones(shape[0]) * 10 * shape[1]
@@ -575,7 +562,7 @@ def rastrigin(pop):
     pop_array = np.array(pop)
 
     for i in range(shape[0]):
-        fit[i] += np.sum(pop_array[i]**2 - 10 *
+        fit[i] += np.sum(pop_array[i] ** 2 - 10 *
                          np.cos(2 * np.pi * pop_array[i]))
 
     return fit
@@ -614,7 +601,6 @@ def pop_check(pop, column, space):
 
 # pomocna funkcia na kontrolu hodnoty po mutacii
 def mut_check(d, space_l, space_u):
-
     if d < space_l:
         d = space_l
 
@@ -659,32 +645,35 @@ def splitting(old_pop, pts_list, i, j, mode):
 
     return new_row1, new_row2
 
-def migrate(pops,popd, i_dest):
+
+def migrate(pops, popd, i_dest):
     # from pops(start) take best individual - 1. index
     # show him to the popd at the i_dest position from end
-    popd[-i_dest,:] = pops[0,:]
+    popd[-i_dest, :] = pops[0, :]
     return popd
 
+
 def warming(old_pop, rate, space):
-    dist = space*rate
+    dist = space * rate
     s_pop = old_pop.shape
     d_pop = np.array([])
     r_dist = np.array([])
-    
+
     # random noise creation based on space and rate
     for j in len(dist):
-        r_dist[j] = dist(random.randintint(0,1))
+        r_dist[j] = dist(random.randintint(0, 1))
 
     # aplication of the noise to the individuals genom
     for i in s_pop[0]:
-        t_pop = old_pop[i,:] + r_dist
+        t_pop = old_pop[i, :] + r_dist
         for j in s_pop[1]:
-            if (t_pop[j] > space[1,j]):
-                 t_pop[j] = space[1,j]
-            if (t_pop[j] < space[0,j]):
-                t_pop[j] = space[0,j]
-        d_pop[i,:] = t_pop
+            if (t_pop[j] > space[1, j]):
+                t_pop[j] = space[1, j]
+            if (t_pop[j] < space[0, j]):
+                t_pop[j] = space[0, j]
+        d_pop[i, :] = t_pop
     return d_pop
+
 
 def reset(oldpop, lpop, space):
     return genrpop(lpop, space)
