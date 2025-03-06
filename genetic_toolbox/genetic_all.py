@@ -482,10 +482,6 @@ def crossord(old_pop, sel=0):
         fill(old_pop[j], old_pop[i], new_pop[j], p1, p2)
 
     return new_pop
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/main
 
 # ------------------------------ ine funkcie ------------------------------
 
