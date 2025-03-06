@@ -442,6 +442,57 @@ def crossov(old_pop, pts, mode):
 
     return old_pop
 
+# Vytvori novu populaciu retazcov ktora vznikne skrizenim vsetkych
+# retazcov starej populacie 2-bodovym krizenim permutacneho typu.
+# Krizene su vsetky retazce (ak je ich parny pocet).
+def crossord(old_pop, sel=0):
+    lpop, lstring = old_pop.shape
+    new_pop = np.copy(old_pop)
+    flag = np.zeros(lpop, dtype=int)
+    num = lpop//2
+    i = 0
+
+    # vytvaranie dvojic retazcov s indexami i a j
+    for cyk in range(num):
+        # nahodne parovanie retazcov
+        if sel == 0:
+            while flag[i] != 0:
+                i += 1
+            flag[i] = 1
+
+            j = random.randint(0, lpop-1)
+            while flag[j] != 0:
+                j = random.randint(0, lpop-1)
+            flag[j] = 2
+
+        # parovanie susednych retazcov
+        else:
+            i = 2*cyk
+            j = i+1
+
+        # pozicie delenia retazca p1, p2
+        p1 = random.randint(0, lstring-2)
+        p2 = random.randint(p1+1, lstring-1)
+
+        new_pop[i, p1:p2] = old_pop[i, p1:p2]
+        new_pop[j, p1:p2] = old_pop[j, p1:p2]
+
+        def fill(parent1, parent2, child, p1x, p2x):
+            pos = 0
+            for gene in parent2:
+                if pos == p1x:
+                    pos = p2x
+                if gene not in parent1[p1x:p2x]:
+                    child[pos] = gene
+                    pos += 1
+                if pos >= lstring:
+                    break
+
+        fill(old_pop[i], old_pop[j], new_pop[i], p1, p2)
+        fill(old_pop[j], old_pop[i], new_pop[j], p1, p2)
+
+    return new_pop
+
 
 # ------------------------------ ine funkcie ------------------------------
 
