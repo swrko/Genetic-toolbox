@@ -467,17 +467,10 @@ def genrpop(pop_size, space):
 
 
 # generovanie populacie pre permutacne ulohy
-# vygenerovanie hodnoty majo rozsah <1; max_val>
-def genrpop_perm(rows, max_val):
-
-    pop = []
-    for i in range(rows):
-        lst = list(range(max_val))
-        random.shuffle(lst)
-        pop.append(lst)
-
-    return np.array(pop)
-
+# vygenerovanie hodnoty majo rozsah <min_index; max_index>
+def genrpop_perm(pop_size, min_index, max_index):
+    assert max_index >= min_index, "max_index should be greater than min_index"
+    return np.random.rand(pop_size, max_index-min_index+1).argsort(axis=1) + min_index
 
 # inverzia fit hodnot pre maximalizacne ulohy
 def invfit(old):
